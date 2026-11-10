@@ -9,16 +9,22 @@ interface RoleSelectorProps {
 }
 
 const roles: { id: UserRole; label: string; icon: LucideIcon; desc: string }[] = [
-  { id: 'student', label: 'Student', icon: GraduationCap, desc: 'Currently enrolled' },
-  { id: 'faculty', label: 'Faculty', icon: BookOpen, desc: 'Teaching staff' },
-  { id: 'guest', label: 'Guest', icon: Users, desc: 'Campus visitor' },
+  { id: 'student', label: 'Student', icon: GraduationCap, desc: 'Enrolled' },
+  { id: 'faculty', label: 'Faculty', icon: BookOpen, desc: 'Teacher ID' },
+  { id: 'guest', label: 'Guest', icon: Users, desc: 'Visitor' },
 ];
 
 export function RoleSelector({ selected, onChange }: RoleSelectorProps) {
   return (
-    <div>
-      <p className="text-xs font-medium text-[#777777] mb-2">I am a</p>
-      <div className="grid grid-cols-3 gap-2">
+    <fieldset className="border-0 p-0 m-0">
+      <legend className="text-xs font-bold text-[#666666] mb-2 uppercase tracking-wider">
+        Select Campus Role
+      </legend>
+      <div
+        role="radiogroup"
+        aria-label="Campus Role"
+        className="grid grid-cols-3 gap-2 sm:gap-2.5"
+      >
         {roles.map(role => {
           const IconComponent = role.icon;
           const isSelected = selected === role.id;
@@ -26,26 +32,30 @@ export function RoleSelector({ selected, onChange }: RoleSelectorProps) {
             <button
               key={role.id}
               type="button"
+              role="radio"
+              aria-checked={isSelected}
               onClick={() => onChange(role.id)}
-              className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 text-center transition-all active:scale-95
-                ${isSelected
-                  ? 'border-[#F47721] bg-[#FFF7F0]'
-                  : 'border-[#EEEEEE] bg-white hover:border-[#F47721]/40'
+              className={`min-h-[52px] flex flex-col items-center gap-1.5 p-2.5 sm:p-3 rounded-2xl border-2 text-center transition-all active:scale-95 cursor-pointer focus-ring
+                ${
+                  isSelected
+                    ? 'border-[#F47721] bg-[#FFF7F0] shadow-xs'
+                    : 'border-[#EEEEEE] bg-white hover:border-[#F47721]/30 hover:bg-[#FFF7F0]/50'
                 }`}
             >
-              <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors
-                ${isSelected ? 'bg-[#F47721] text-white' : 'bg-[#FFF7F0] text-[#777777]'}`}
+              <div
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors
+                ${isSelected ? 'bg-[#F47721] text-white shadow-xs' : 'bg-[#FFF7F0] text-[#666666]'}`}
               >
-                <IconComponent size={20} />
+                <IconComponent size={19} />
               </div>
-              <span className={`text-xs font-semibold ${isSelected ? 'text-[#F47721]' : 'text-[#252525]'}`}>
+              <span className={`text-xs font-bold ${isSelected ? 'text-[#F47721]' : 'text-[#252525]'}`}>
                 {role.label}
               </span>
-              <span className="text-[10px] text-[#777777]">{role.desc}</span>
+              <span className="text-[10px] text-[#666666] font-medium leading-tight">{role.desc}</span>
             </button>
           );
         })}
       </div>
-    </div>
+    </fieldset>
   );
 }

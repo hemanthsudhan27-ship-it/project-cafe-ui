@@ -64,15 +64,15 @@ export default function HomePage() {
                 College of Engineering Vadakara
               </span>
               {user?.role && (
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-white border border-[#EEEEEE] text-[#777777] capitalize">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border border-[#EEEEEE] text-[#666666] capitalize">
                   {user.role}
                 </span>
               )}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#252525] mt-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#252525] mt-2">
               Good {greeting || 'day'}, {firstName}!
             </h1>
-            <p className="text-sm text-[#777777] mt-1">
+            <p className="text-xs sm:text-sm text-[#666666] mt-1">
               What would you like to have from the cafeteria today?
             </p>
           </div>

@@ -11,23 +11,33 @@ interface CategoryFilterProps {
 
 export function CategoryFilter({ selected, onChange }: CategoryFilterProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-      {categories.map(cat => (
-        <button
-          key={cat.id}
-          onClick={() => onChange(cat.id)}
-          className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 active:scale-95
-            ${selected === cat.id
-              ? 'bg-[#F47721] text-white border-[#F47721]'
-              : 'bg-white text-[#777777] border-[#EEEEEE] hover:border-[#F47721] hover:text-[#F47721]'
-            }`}
-          aria-pressed={selected === cat.id}
-        >
-          <CategoryIcon id={cat.id} size={15} className="shrink-0" />
-          <span>{cat.label}</span>
-        </button>
-      ))}
+    <div className="relative w-full">
+      <div
+        role="tablist"
+        aria-label="Filter food by category"
+        className="flex gap-2 overflow-x-auto scrollbar-hide py-1 px-0.5 scroll-smooth select-none"
+      >
+        {categories.map(cat => {
+          const isSelected = selected === cat.id;
+          return (
+            <button
+              key={cat.id}
+              role="tab"
+              aria-selected={isSelected}
+              onClick={() => onChange(cat.id)}
+              className={`flex-shrink-0 min-h-[40px] flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border transition-all duration-150 active:scale-95 cursor-pointer focus-ring
+                ${
+                  isSelected
+                    ? 'bg-[#F47721] text-white border-[#F47721] shadow-xs'
+                    : 'bg-white text-[#666666] border-[#EEEEEE] hover:border-[#F47721]/40 hover:text-[#F47721] hover:bg-[#FFF7F0]'
+                }`}
+            >
+              <CategoryIcon id={cat.id} size={16} className="shrink-0" />
+              <span>{cat.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
-

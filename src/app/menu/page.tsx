@@ -37,15 +37,15 @@ function MenuContent() {
 
   return (
     <AppShell>
-      <div className="flex flex-col gap-6 py-4 sm:py-6">
+      <div className="flex flex-col gap-4 sm:gap-6 py-4 sm:py-6">
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EEEEEE] pb-5">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-b border-[#EEEEEE] pb-4 sm:pb-5">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#252525] tracking-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#252525] tracking-tight">
               Cafeteria Menu
             </h1>
-            <p className="text-sm text-[#777777] mt-1">
-              Showing <strong>{filtered.length}</strong> items ({availableCount} currently available)
+            <p className="text-xs sm:text-sm text-[#666666] mt-0.5 sm:mt-1">
+              Showing <strong>{filtered.length}</strong> items ({availableCount} available right now)
             </p>
           </div>
 

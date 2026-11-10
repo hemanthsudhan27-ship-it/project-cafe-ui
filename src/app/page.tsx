@@ -65,23 +65,23 @@ export default function LandingPage() {
               </div>
 
               {/* Main Heading Hierarchy */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#252525] tracking-tight uppercase leading-[1.05]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#252525] tracking-tight uppercase leading-[1.08]">
                 CAFETERIA
               </h1>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#F47721] mt-2 tracking-tight">
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-[#F47721] mt-1.5 sm:mt-2 tracking-tight">
                 College of Engineering Vadakara
               </p>
 
               {/* Welcoming Description */}
-              <p className="text-base sm:text-lg text-[#777777] mt-4 sm:mt-5 max-w-xl leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-[#666666] mt-3.5 sm:mt-5 max-w-xl leading-relaxed">
                 Order freshly prepared campus meals in advance, bypass the break-time counter rush, and collect your food without waiting in line.
               </p>
 
               {/* Action Buttons: Create Account as distinctive glazed CTA + Sign In as quieter action */}
-              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto">
+              <div className="mt-7 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                 <Link
                   href="/signup"
-                  className="btn-glazed-orange px-8 py-3.5 sm:py-4 rounded-xl text-base font-bold text-center flex items-center justify-center gap-2"
+                  className="btn-glazed-orange w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-center flex items-center justify-center gap-2"
                 >
                   <span>Create Account</span>
                   <ArrowRight size={18} />
@@ -89,7 +89,7 @@ export default function LandingPage() {
 
                 <Link
                   href="/login"
-                  className="px-7 py-3.5 sm:py-4 bg-white border-2 border-[#EEEEEE] hover:border-[#F47721] hover:text-[#F47721] hover:bg-[#FFF7F0] text-[#252525] font-semibold text-base rounded-xl transition-all duration-200 text-center flex items-center justify-center active:scale-95"
+                  className="w-full sm:w-auto min-h-[46px] px-7 py-3 sm:py-4 bg-white border-2 border-[#EEEEEE] hover:border-[#F47721] hover:text-[#F47721] hover:bg-[#FFF7F0] text-[#252525] font-bold text-sm sm:text-base rounded-xl transition-all duration-200 text-center flex items-center justify-center active:scale-95"
                 >
                   Sign In
                 </Link>
@@ -107,15 +107,15 @@ export default function LandingPage() {
               )}
 
               {/* Campus Community Indicator */}
-              <div className="mt-8 pt-6 border-t border-[#EEEEEE] flex flex-wrap items-center gap-3 text-xs font-semibold text-[#777777]">
-                <span className="text-[#252525]">Campus Community Access:</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FFF7F0] text-[#252525]">
+              <div className="mt-7 pt-5 border-t border-[#EEEEEE] flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-[#666666]">
+                <span className="text-[#252525] font-bold">Campus Community Access:</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FFF7F0] text-[#252525] border border-[#F47721]/15">
                   <GraduationCap size={14} className="text-[#F47721]" /> Students
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FFF7F0] text-[#252525]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FFF7F0] text-[#252525] border border-[#F47721]/15">
                   <BookOpen size={14} className="text-[#F47721]" /> Faculty (Teacher ID)
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FFF7F0] text-[#252525]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FFF7F0] text-[#252525] border border-[#F47721]/15">
                   <Users size={14} className="text-[#F47721]" /> Campus Guests
                 </span>
               </div>

@@ -1,4 +1,4 @@
-import { Order, OrderStatus } from '../types/order';
+import { Order, OrderStatus, PaymentMethod } from '../types/order';
 import { CartItem } from '../types/cart';
 import { mockOrders } from '../data/mockOrders';
 
@@ -10,7 +10,11 @@ const SERVICE_CHARGE_RATE = 0.05; // 5%
 const orders: Order[] = [...mockOrders];
 
 export const orderService = {
-  async placeOrder(items: CartItem[], note?: string): Promise<Order> {
+  async placeOrder(
+    items: CartItem[],
+    note?: string,
+    paymentMethod: PaymentMethod = 'online_upi'
+  ): Promise<Order> {
     await delay(1000);
     const subtotal = items.reduce((sum, i) => sum + i.menuItem.price * i.quantity, 0);
     const serviceCharge = Math.round(subtotal * SERVICE_CHARGE_RATE);
@@ -21,6 +25,8 @@ export const orderService = {
       serviceCharge,
       total: subtotal + serviceCharge,
       status: 'pending',
+      paymentMethod,
+      paymentStatus: paymentMethod === 'online_upi' ? 'paid' : 'pending',
       placedAt: new Date().toISOString(),
       estimatedTime: 15 + Math.floor(Math.random() * 10),
       note,
@@ -56,6 +62,15 @@ export const orderService = {
       throw new Error('Cannot cancel this order');
     }
     order.status = 'cancelled';
+    return order;
+  },
+
+  async payOrder(id: string, paymentMethod: PaymentMethod = 'online_upi'): Promise<Order> {
+    await delay(600);
+    const order = orders.find(o => o.id === id);
+    if (!order) throw new Error('Order not found');
+    order.paymentMethod = paymentMethod;
+    order.paymentStatus = 'paid';
     return order;
   },
 

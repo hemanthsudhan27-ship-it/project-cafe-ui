@@ -30,7 +30,7 @@ export default function LoginPage() {
         {/* Back to landing */}
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#777777] hover:text-[#252525] mb-6 w-fit transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#666666] hover:text-[#252525] mb-6 w-fit transition-colors min-h-[38px] py-1 px-1 -ml-1 rounded-lg focus-ring"
         >
           <ArrowLeft size={16} /> Back to Cafeteria
         </Link>
@@ -38,32 +38,34 @@ export default function LoginPage() {
         {/* Logo & College Header */}
         <div className="text-center mb-6">
           <div className="inline-flex w-14 h-14 rounded-2xl bg-[#F47721] items-center justify-center mb-3 shadow-md shadow-[#F47721]/20">
-            <span className="text-white text-2xl font-extrabold">C</span>
+            <span className="text-white text-2xl font-black">C</span>
           </div>
           <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
             College of Engineering Vadakara
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#252525] mt-1">Sign In</h1>
-          <p className="text-sm text-[#777777] mt-1">Access your campus cafeteria account</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#252525] mt-1">Sign In</h1>
+          <p className="text-xs sm:text-sm text-[#666666] mt-1">Access your campus cafeteria account</p>
         </div>
 
         {/* Mode tabs */}
         <div className="flex bg-[#FFF7F0] rounded-xl p-1 mb-6 border border-[#EEEEEE]">
           <button
-            className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all ${
+            type="button"
+            className={`flex-1 min-h-[44px] py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
               mode === 'password'
                 ? 'bg-white text-[#F47721] shadow-xs'
-                : 'text-[#777777] hover:text-[#252525]'
+                : 'text-[#666666] hover:text-[#252525]'
             }`}
             onClick={() => setMode('password')}
           >
             Password Login
           </button>
           <button
-            className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all ${
+            type="button"
+            className={`flex-1 min-h-[44px] py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
               mode === 'otp'
                 ? 'bg-white text-[#F47721] shadow-xs'
-                : 'text-[#777777] hover:text-[#252525]'
+                : 'text-[#666666] hover:text-[#252525]'
             }`}
             onClick={() => setMode('otp')}
           >

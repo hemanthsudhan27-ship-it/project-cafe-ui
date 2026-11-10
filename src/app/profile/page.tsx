@@ -1,21 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   ShoppingBag, Settings, LogOut, ChevronRight,
-  Phone, Building2, BadgeCheck, Pencil, ArrowLeft, Mail, Shield
+  Phone, Building2, BadgeCheck, Pencil, ArrowLeft, Mail, Shield, QrCode
 } from 'lucide-react';
 import { AppShell } from '@/components/layout/AppShell';
 import { ProfileHeader } from '@/components/profile/ProfileHeader';
 import { ProfileMenuGroup } from '@/components/profile/ProfileMenu';
+import { TakeawayQRPass } from '@/components/profile/TakeawayQRPass';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/components/ui/Toast';
 import { authService } from '@/lib/services/authService';
+import { orderService } from '@/lib/services/orderService';
+import { Order } from '@/lib/types/order';
 
 export default function ProfilePage() {
   const { user, logout, updateUser } = useAuth();
@@ -23,6 +26,11 @@ export default function ProfilePage() {
   const router = useRouter();
   const [editOpen, setEditOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    orderService.getOrders().then(setOrders);
+  }, []);
 
   // Edit form state
   const [form, setForm] = useState({
@@ -153,8 +161,11 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Right Column: Menu Options & Settings */}
-          <div className="md:col-span-2 space-y-4">
+          {/* Right Column: QR Takeaway Pass, Menu Options & Settings */}
+          <div className="md:col-span-2 space-y-5">
+            {/* Takeaway QR Code & Order Save Component */}
+            <TakeawayQRPass orders={orders} />
+
             {menuGroups.map((group, i) => (
               <ProfileMenuGroup key={i} items={group} />
             ))}

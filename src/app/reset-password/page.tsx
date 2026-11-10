@@ -83,27 +83,30 @@ function ResetPasswordContent() {
               <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
                 College of Engineering Vadakara
               </span>
-              <h1 className="text-2xl font-extrabold text-[#252525] mt-1">Enter Reset Code</h1>
-              <p className="text-sm text-[#777777] mt-2">
+              <h1 className="text-2xl font-black text-[#252525] mt-1">Enter Reset Code</h1>
+              <p className="text-xs sm:text-sm text-[#666666] mt-2">
                 We sent a 6-digit reset code to <strong>{email || 'your email'}</strong>
               </p>
-              <p className="text-xs text-[#F47721] mt-1 font-semibold">(Quick Demo Code: <strong>123456</strong>)</p>
+              <p className="text-xs text-[#F47721] mt-1 font-bold">(Quick Demo Code: 123456)</p>
             </div>
             <form onSubmit={handleVerifyOtp} className="flex flex-col gap-4">
               <Input
                 label="6-Digit Reset Code (OTP)"
                 type="text"
+                inputMode="numeric"
+                autoComplete="one-time-code"
                 value={otp}
                 onChange={e => {
                   setOtp(e.target.value.replace(/\D/g, '').slice(0, 6));
                   setErrors({});
                 }}
-                placeholder="123456"
+                placeholder="······"
                 maxLength={6}
                 error={errors.otp}
+                className="tracking-[0.4em] text-center text-xl font-mono font-bold"
                 required
               />
-              <Button type="submit" fullWidth size="lg" loading={loading} className="shadow-md shadow-[#F47721]/20">
+              <Button type="submit" fullWidth size="lg" loading={loading} className="shadow-md shadow-[#F47721]/20 font-bold">
                 Verify Code & Continue
               </Button>
             </form>

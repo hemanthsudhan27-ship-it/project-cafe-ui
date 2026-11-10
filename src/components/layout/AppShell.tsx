@@ -10,9 +10,9 @@ interface AppShellProps {
 
 export function AppShell({ children, hideNav = false }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-white flex flex-col justify-between">
+    <div className="min-h-screen bg-white flex flex-col justify-between selection:bg-[#F47721]/20 selection:text-[#F47721]">
       <Header />
-      <main className="w-full max-w-7xl mx-auto pt-16 pb-6 px-4 sm:px-6 lg:px-8 flex-1">
+      <main className="w-full max-w-7xl mx-auto pt-16 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 flex-1">
         {children}
       </main>
 

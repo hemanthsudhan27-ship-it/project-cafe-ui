@@ -171,21 +171,21 @@ export default function SignUpPage() {
         {/* Back link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#777777] hover:text-[#252525] mb-4 w-fit transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#666666] hover:text-[#252525] mb-4 w-fit transition-colors min-h-[38px] py-1 px-1 -ml-1 rounded-lg focus-ring"
         >
           <ArrowLeft size={16} /> Back to Cafeteria
         </Link>
 
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex w-12 h-12 rounded-2xl bg-[#F47721] items-center justify-center mb-2 shadow-md shadow-[#F47721]/20">
-            <span className="text-white text-xl font-extrabold">C</span>
+          <div className="inline-flex w-14 h-14 rounded-2xl bg-[#F47721] items-center justify-center mb-2 shadow-md shadow-[#F47721]/20">
+            <span className="text-white text-2xl font-black">C</span>
           </div>
           <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
             College of Engineering Vadakara
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#252525] mt-1">Create Account</h1>
-          <p className="text-sm text-[#777777] mt-1">Join the campus cafeteria ordering platform</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#252525] mt-1">Create Account</h1>
+          <p className="text-xs sm:text-sm text-[#666666] mt-1">Join the campus cafeteria ordering platform</p>
         </div>
 
         {/* Role selector */}

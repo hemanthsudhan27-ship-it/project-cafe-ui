@@ -45,20 +45,20 @@ export default function ForgotPasswordPage() {
       <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 py-10 max-w-md mx-auto w-full">
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#777777] mb-6 w-fit hover:text-[#252525] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#666666] mb-6 w-fit hover:text-[#252525] transition-colors min-h-[38px] py-1 px-1 -ml-1 rounded-lg focus-ring"
         >
           <ArrowLeft size={16} /> Back to Sign In
         </Link>
 
         <div className="text-center mb-8">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-[#FFF7F0] border border-[#EEEEEE] items-center justify-center mb-4 text-[#F47721]">
+          <div className="inline-flex w-16 h-16 rounded-2xl bg-[#FFF7F0] border border-[#EEEEEE] items-center justify-center mb-4 text-[#F47721] shadow-xs">
             <KeyRound size={32} />
           </div>
           <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
             College of Engineering Vadakara
           </span>
-          <h1 className="text-2xl font-extrabold text-[#252525] mt-1">Forgot Password?</h1>
-          <p className="text-sm text-[#777777] mt-2">
+          <h1 className="text-2xl font-black text-[#252525] mt-1">Forgot Password?</h1>
+          <p className="text-xs sm:text-sm text-[#666666] mt-2">
             Enter your registered college email and we&apos;ll send you a password reset code.
           </p>
         </div>

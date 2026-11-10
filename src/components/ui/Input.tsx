@@ -14,34 +14,38 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref
 ) {
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
+  const errorId = `${inputId}-error`;
+  const hintId = `${inputId}-hint`;
 
   return (
     <div className="w-full">
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-[#252525] mb-1.5"
+          className="block text-sm font-semibold text-[#252525] mb-1.5"
         >
           {label}
-          {props.required && <span className="text-[#D94A43] ml-0.5">*</span>}
+          {props.required && <span className="text-[#D94A43] ml-0.5" aria-hidden="true">*</span>}
         </label>
       )}
       <div className="relative">
         {leftIcon && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#777777]">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#666666] pointer-events-none">
             {leftIcon}
           </span>
         )}
         <input
           ref={ref}
           id={inputId}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : hint ? hintId : undefined}
           className={`
-            w-full border rounded-xl px-4 py-3 text-sm text-[#252525]
-            placeholder:text-[#777777] bg-white
-            transition-colors duration-150
+            w-full min-h-[44px] border rounded-xl px-4 py-2.5 text-sm text-[#252525]
+            placeholder:text-[#888888] bg-white
+            transition-all duration-150
             focus:outline-none focus:border-[#F47721] focus:ring-2 focus:ring-[#F47721]/20
             disabled:bg-[#FAFAFA] disabled:cursor-not-allowed
-            ${error ? 'border-[#D94A43] focus:border-[#D94A43] focus:ring-[#D94A43]/20' : 'border-[#EEEEEE]'}
+            ${error ? 'border-[#D94A43] focus:border-[#D94A43] focus:ring-[#D94A43]/20' : 'border-[#EEEEEE] hover:border-gray-300'}
             ${leftIcon ? 'pl-10' : ''}
             ${rightElement ? 'pr-12' : ''}
             ${className}
@@ -49,21 +53,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {...props}
         />
         {rightElement && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2">
+          <span className="absolute right-3.5 top-1/2 -translate-y-1/2">
             {rightElement}
           </span>
         )}
       </div>
       {error && (
-        <p className="mt-1.5 text-xs text-[#D94A43] flex items-center gap-1.5 font-medium">
+        <p id={errorId} className="mt-1.5 text-xs text-[#D94A43] flex items-center gap-1.5 font-medium" role="alert">
           <AlertCircle size={13} className="shrink-0" />
           <span>{error}</span>
         </p>
       )}
       {hint && !error && (
-        <p className="mt-1.5 text-xs text-[#777777]">{hint}</p>
+        <p id={hintId} className="mt-1.5 text-xs text-[#666666]">{hint}</p>
       )}
     </div>
   );
 });
-

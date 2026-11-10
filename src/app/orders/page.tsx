@@ -34,13 +34,14 @@ export default function OrdersPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/home"
-              className="p-2 -ml-2 rounded-xl text-[#777777] hover:text-[#252525] hover:bg-gray-50 transition-colors"
+              className="p-2 -ml-2 rounded-xl text-[#666666] hover:text-[#252525] hover:bg-gray-50 transition-colors focus-ring"
+              aria-label="Back to Dashboard"
             >
               <ArrowLeft size={20} />
             </Link>
             <div>
-              <h1 className="text-2xl font-extrabold text-[#252525]">My Orders</h1>
-              <p className="text-sm text-[#777777]">
+              <h1 className="text-xl sm:text-2xl font-black text-[#252525]">My Orders</h1>
+              <p className="text-xs sm:text-sm text-[#666666]">
                 Track current cafeteria orders and past meal history
               </p>
             </div>
@@ -48,10 +49,11 @@ export default function OrdersPage() {
 
           <button
             onClick={fetchOrders}
-            className="p-2 rounded-xl border border-[#EEEEEE] text-[#777777] hover:text-[#F47721] hover:border-[#F47721] transition-colors"
+            className="min-h-[40px] px-3 rounded-xl border border-[#EEEEEE] text-[#666666] hover:text-[#F47721] hover:border-[#F47721]/40 hover:bg-[#FFF7F0] transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
             aria-label="Refresh orders"
           >
-            <RefreshCw size={16} />
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            <span className="hidden sm:inline">Refresh</span>
           </button>
         </div>
 

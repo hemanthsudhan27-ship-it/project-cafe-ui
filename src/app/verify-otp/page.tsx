@@ -124,53 +124,57 @@ function OtpVerificationContent() {
         </Link>
 
         {/* Icon & Title */}
-        <div className="text-center mb-8">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-[#FFF7F0] border border-[#EEEEEE] items-center justify-center mb-4 text-[#F47721]">
+        <div className="text-center mb-7">
+          <div className="inline-flex w-16 h-16 rounded-2xl bg-[#FFF7F0] border border-[#EEEEEE] items-center justify-center mb-3 text-[#F47721] shadow-xs">
             <MailCheck size={32} />
           </div>
           <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
             College of Engineering Vadakara
           </span>
-          <h1 className="text-2xl font-extrabold text-[#252525] mt-1">Verify Your Email</h1>
-          <p className="text-sm text-[#777777] mt-2">
-            We have sent a 6-digit confirmation code to:
+          <h1 className="text-2xl font-black text-[#252525] mt-1">Verify Your Email</h1>
+          <p className="text-xs sm:text-sm text-[#666666] mt-2">
+            We sent a 6-digit confirmation code to:
           </p>
           <p className="text-sm font-bold text-[#252525] mt-0.5">{email || 'your email'}</p>
-          <p className="text-xs text-[#F47721] mt-1.5 font-medium">(Quick Demo Code: <strong>123456</strong>)</p>
+          <p className="text-xs text-[#F47721] mt-1.5 font-bold">(Quick Demo Code: 123456)</p>
         </div>
 
         <form onSubmit={handleVerify} className="flex flex-col gap-4">
           <Input
-            label="Enter 6-Digit OTP"
+            label="Enter 6-Digit OTP Code"
             type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
             value={otp}
             onChange={e => {
               setOtp(e.target.value.replace(/\D/g, '').slice(0, 6));
               setError('');
             }}
-            placeholder="123456"
+            placeholder="······"
             maxLength={6}
             error={error}
+            className="tracking-[0.4em] text-center text-xl font-mono font-bold"
             required
           />
 
-          <Button type="submit" fullWidth size="lg" loading={loading} className="shadow-md shadow-[#F47721]/20">
-            Confirm & Complete Registration
+          <Button type="submit" fullWidth size="lg" loading={loading} className="shadow-md shadow-[#F47721]/20 font-bold">
+            Confirm & Enter Cafeteria
           </Button>
         </form>
 
         {/* Resend options */}
         <div className="text-center mt-6">
-          <p className="text-xs text-[#777777]">Didn&apos;t get the code?</p>
+          <p className="text-xs text-[#666666]">Didn&apos;t get the code?</p>
           {countdown > 0 ? (
-            <p className="text-xs text-[#777777] mt-1">
+            <p className="text-xs text-[#666666] mt-1">
               You can request another code in <strong>{countdown}s</strong>
             </p>
           ) : (
             <button
+              type="button"
               onClick={handleResend}
               disabled={resending}
-              className="mt-1 text-xs font-bold text-[#F47721] hover:underline disabled:opacity-50"
+              className="mt-1 text-xs font-bold text-[#F47721] hover:underline disabled:opacity-50 cursor-pointer"
             >
               {resending ? 'Sending…' : 'Resend OTP Code'}
             </button>

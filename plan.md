@@ -9,22 +9,23 @@
 ## Table of Contents
 
 1. [Project Overview](#1-project-overview)
-2. [Functional Requirements](#2-functional-requirements)
-3. [User Roles & Permissions](#3-user-roles--permissions)
-4. [Authentication Workflows](#4-authentication-workflows)
-5. [Pages & Responsibilities](#5-pages--responsibilities)
-6. [UI/UX Design System & Responsive Strategy](#6-uiux-design-system--responsive-strategy)
-7. [Technology Stack & Architecture](#7-technology-stack--architecture)
-8. [Folder & File Structure](#8-folder--file-structure)
-9. [Component Hierarchy](#9-component-hierarchy)
-10. [Routing Structure & User Flow](#10-routing-structure--user-flow)
-11. [State Management](#11-state-management)
-12. [Future Admin Panel Architecture (FUTURE / NOT IMPLEMENTED)](#12-future-admin-panel-architecture-future--not-implemented)
-13. [Validation & Error Handling](#13-validation--error-handling)
-14. [Responsive Design Strategy](#14-responsive-design-strategy)
-15. [Implementation Roadmap](#15-implementation-roadmap)
-16. [Testing Strategy](#16-testing-strategy)
-17. [Known Limitations & Pending Decisions](#17-known-limitations--pending-decisions)
+2. [UX and Visual Identity Audit](#2-ux-and-visual-identity-audit)
+3. [Functional Requirements](#3-functional-requirements)
+4. [User Roles & Permissions](#4-user-roles--permissions)
+5. [Authentication Workflows](#5-authentication-workflows)
+6. [Pages & Responsibilities](#6-pages--responsibilities)
+7. [UI/UX Design System & Responsive Strategy](#7-uiux-design-system--responsive-strategy)
+8. [Technology Stack & Architecture](#8-technology-stack--architecture)
+9. [Folder & File Structure](#9-folder--file-structure)
+10. [Component Hierarchy](#10-component-hierarchy)
+11. [Routing Structure & User Flow](#11-routing-structure--user-flow)
+12. [State Management](#12-state-management)
+13. [Future Admin Panel Architecture (FUTURE / NOT IMPLEMENTED)](#13-future-admin-panel-architecture-future--not-implemented)
+14. [Validation & Error Handling](#14-validation--error-handling)
+15. [Responsive Design Strategy](#15-responsive-design-strategy)
+16. [Implementation Roadmap](#16-implementation-roadmap)
+17. [Testing Strategy](#17-testing-strategy)
+18. [Known Limitations & Pending Decisions](#18-known-limitations--pending-decisions)
 
 ---
 
@@ -33,8 +34,34 @@
 **Project Name:** CAFETERIA — College of Engineering Vadakara  
 **Type:** College Cafeteria Food Ordering Web Application  
 **Target Users:** Students, Faculty, and Guests of College of Engineering Vadakara (CEV)  
+**Primary Device Audience:** 90% Mobile Users (Mobile-First Experience is Priority #1)  
 **Developed by:** IEDC CEV  
 **Primary Goal:** Provide a dedicated campus cafeteria welcome and pre-ordering platform, allowing students, faculty, and guests to browse food items, order meals in advance, skip queues, and pick up fresh food hassle-free.
+
+---
+
+## 2. UX and Visual Identity Audit
+
+### A. Existing Design Strengths
+- **Cohesive Color Palette:** Recognizable orange-and-white identity (`#F47721`, `#FFF7F0`, `#252525`, `#EEEEEE`).
+- **Clean SVG Iconography:** Entire application uses Lucide React with zero emoji placeholders.
+- **Fast Client Architecture:** Centralized `menuService.ts` and in-memory caches allow instant filtering.
+- **Universal Attribution:** Exact mandatory footer (`Designed and Developed by IEDC CEV`) displayed uniformly.
+- **Interactive Takeaway Receipt & QR:** Stepped mechanical animation and canvas PNG export for offline pickup.
+
+### B. Identified Problems by Priority
+
+| Priority | Category | Problem Description | Affected Files | Planned Solution |
+|---|---|---|---|---|
+| **P0** | Mobile Usability | **Sub-standard Touch Targets:** Stepper buttons in `FoodCard` and `CartItemRow` are `w-6 h-6` (24px) with tiny 12px icons. Fails WCAG 2.5.5 minimum 44px touch target guidelines; leads to frequent mis-taps on mobile. | `FoodCard.tsx`, `CartItem.tsx`, `Button.tsx` | Enlarge touch hitboxes to minimum 44x44px equivalent (`w-8 h-8` with tap padding); ensure comfortable finger tap targets on all devices down to 320px. |
+| **P0** | Mobile Journey | **Buried Cart & Checkout Actions:** On mobile devices with 3+ items, "Proceed to Checkout" on `/cart` and "Confirm & Place Order" on `/checkout` are pushed beneath long vertical scrolls. Students must scroll through all items to see totals or submit. | `app/cart/page.tsx`, `app/checkout/page.tsx` | Implement a persistent mobile sticky bottom action bar (`sm:hidden`) displaying live totals, item counts, and one-tap checkout submission above the bottom bar. |
+| **P1** | Card Hierarchy | **Inconsistent Card Heights & Ragged Grid Alignment:** In a 2-column mobile food grid, differing title lengths and descriptions create ragged uneven rows and inconsistent card heights. | `FoodCard.tsx`, `FoodGrid.tsx` | Enforce rigid `h-full` flex-column structure, standard 2-line title clamps, normalized image aspect ratios, and unified price-action row pinning. |
+| **P1** | Design Tokens | **Inconsistent Spacing, Radii, and Focus Indicators:** Components mix arbitrary classes (`rounded-xl`, `rounded-2xl`, `rounded-3xl`, arbitrary padding). `Button.tsx` lacks visible accessible focus rings (`focus-visible:ring-2`). | `globals.css`, `Button.tsx`, `Input.tsx` | Formalize design tokens in `globals.css` and Tailwind: standard border radii (`rounded-2xl` for cards, `rounded-xl` for controls), standard button heights (44px min), and focus rings. |
+| **P1** | Navigation UX | **Category Carousel Affordance:** On mobile, `CategoryFilter` scrolls horizontally with no edge fade or hint that more categories exist off-screen, causing users to miss items like Desserts/Drinks. | `CategoryFilter.tsx` | Add subtle scroll fades on carousel edges and clear horizontal scrolling cues with active pill highlight. |
+| **P1** | Safe Areas | **Mobile Safe-Area Clearance:** Fixed bottom navigation (`BottomNav.tsx`) lacks explicit `env(safe-area-inset-bottom)` support on modern smartphones with home indicator gestures (iPhone/Android). | `BottomNav.tsx`, `AppShell.tsx`, `Footer.tsx` | Add `pb-[env(safe-area-inset-bottom)]` and corresponding padding to `AppShell` to ensure zero gesture bar overlap. |
+| **P1** | Accessibility | **Form Field & Error Association:** Input error messages in `Input.tsx` lack `aria-describedby` linking; screen readers do not announce validation errors automatically. Text contrast on secondary labels (`#777777`) is borderline AA on white. | `Input.tsx`, `globals.css` | Link `aria-invalid` and `aria-describedby` on inputs; adjust secondary text token to `#666666` (5.7:1 contrast ratio). |
+| **P2** | Microinteractions | **Cart & Action Feedback:** Adding items to cart changes button text to "Added", but lacks animated cart badge bounce or notification pulse on the bottom nav / header icon. | `Header.tsx`, `BottomNav.tsx`, `FoodCard.tsx` | Add subtle scale pulse to cart count badges when items are added to provide clear confirmation. |
+| **P2** | Performance | **Food Card Image Loading:** Images use `unoptimized` without blur placeholders or progressive skeletons during initial fetch. | `FoodCard.tsx`, `FoodGrid.tsx` | Implement skeleton loading states and graceful image fade-ins. |
 
 ### Objectives
 - **Full-Screen Responsive Website:** Expand naturally on desktop up to full viewport width (`max-w-7xl` container) with balanced spacing and wider food grids, while preserving compact touch-friendly mobile layouts with 2-column food grids and fixed bottom navigation.
@@ -282,9 +309,11 @@ cafe-ui/
     │   │   ├── CartSummary.tsx      ← Bill breakdown with 5% service charge
     │   │   └── EmptyCart.tsx        ← Empty cart illustration and menu CTA
     │   ├── profile/
+    │   │   ├── TakeawayQRPass.tsx   ← Display & save takeaway pickup QR pass as high-res PNG image
     │   │   ├── ProfileHeader.tsx    ← Avatar, name, and role badge
     │   │   └── ProfileMenu.tsx      ← Settings & navigation options
     │   ├── orders/
+    │   │   ├── ReceiptPrinter.tsx   ← Animated POS thermal receipt printer with takeaway QR
     │   │   ├── OrderCard.tsx        ← Order summary card for history list
     │   │   └── OrderStatusBadge.tsx ← Color-coded status badge
     │   └── ui/
@@ -549,6 +578,44 @@ To prevent future rewrites when an Admin Panel is built, food catalog management
 - [x] TASK-072: Executed automated regex verification confirming 0 emojis remain in `src/`
 - [x] TASK-073: Verified production build (`npm run build`) succeeds with 0 TypeScript/Turbopack errors across 21 routes
 
+### Phase 16: Takeaway Receipt Printer Machine & QR Code Animation ✅
+- [x] TASK-074: Installed `motion` library for smooth mechanical stepped paper feeding
+- [x] TASK-075: Implemented `src/components/orders/ReceiptPrinter.tsx` adapted to the orange & dark-slate POS cafeteria aesthetic
+- [x] TASK-076: Integrated serrated receipt tooth paper cut (`clipPath`), takeaway pickup QR code, token identifier, items breakdown, and total billed amount
+- [x] TASK-077: Integrated `ReceiptPrinterAnimation` into checkout confirmation (`src/app/checkout/page.tsx`) triggering automatically after order placement
+- [x] TASK-078: Integrated permanent takeaway QR code pass into order tracking sidebar (`src/app/orders/[id]/page.tsx`)
+- [x] TASK-079: Verified production build (`npm run build`) with 0 errors across 21 routes
+
+### Phase 17: User Profile Takeaway QR Code Display & Save Feature ✅
+- [x] TASK-080: Installed `qrcode.react` for scannable high-resolution QR rendering
+- [x] TASK-081: Created `src/components/profile/TakeawayQRPass.tsx` allowing students/faculty to view, switch between, and manage takeaway passes
+- [x] TASK-082: Added composite canvas generator allowing users to "Save QR Pass (PNG)" directly to their device downloads/gallery with offline reliability
+- [x] TASK-083: Added one-click token clipboard copying and printable receipt trigger
+- [x] TASK-084: Integrated `TakeawayQRPass` into `src/app/profile/page.tsx` with dynamic order fetching
+- [x] TASK-085: Verified clean production build with 21/21 routes passing and 0 errors
+
+### Phase 18: Complete Visual Identity Audit & Mobile-First UX Optimization ✅
+- [x] TASK-086 [P0]: Addressed sub-standard mobile touch targets across `FoodCard.tsx`, `CartItem.tsx`, `SearchBar.tsx`, `Button.tsx` (upgraded steppers to `w-8 h-8` with tap buffers meeting WCAG 2.5.5 minimum 44px guideline)
+- [x] TASK-087 [P0]: Implemented persistent mobile sticky floating checkout bar on `/cart` (`sm:hidden`) displaying live totals and one-tap checkout access above the bottom navigation
+- [x] TASK-088 [P0]: Implemented persistent mobile sticky floating order confirmation bar on `/checkout` (`sm:hidden`) providing instant order submission without scrolling past long item lists
+- [x] TASK-089 [P1]: Enforced rigid `h-full` flex-column card architecture and normalized aspect ratios on `FoodCard.tsx` preventing ragged uneven grid rows on mobile viewports
+- [x] TASK-090 [P1]: Enhanced `globals.css` design tokens, darkened secondary text token to `#666666` (5.7:1 contrast ratio), and added accessible focus rings (`focus-ring`)
+- [x] TASK-091 [P1]: Added safe-area padding `env(safe-area-inset-bottom)` to `BottomNav.tsx` and sticky bars for home-indicator gesture clearance on modern smartphones
+- [x] TASK-092 [P1]: Enhanced `Input.tsx` with programmatic `aria-invalid` and `aria-describedby` linking for screen readers
+- [x] TASK-093 [P1]: Enhanced `CategoryFilter.tsx` with tab semantics, min 40px touch height, and smooth horizontal scrolling
+- [x] TASK-094 [P2]: Added microinteraction pop animation (`animate-cart-pop`) to cart counter badges across Header and Mobile BottomNav
+- [x] TASK-095 [P2]: Verified responsive layout across 320px, 360px, 375px, 390px, 412px, 430px viewports with zero horizontal overflow
+- [x] TASK-096: Executed production build (`npm run build`) with 0 errors across 21 routes
+
+### Phase 19: Online Payment (UPI) Gateway & "Pay Now" Receipt Printing Trigger ✅
+- [x] TASK-097: Updated `Order` type definitions (`src/lib/types/order.ts`) with `paymentMethod: 'online_upi' | 'pay_at_counter'` and `paymentStatus: 'paid' | 'pending'`
+- [x] TASK-098: Updated `orderService.placeOrder()` to support online payment methods, setting `paymentStatus: 'paid'` for instant UPI orders
+- [x] TASK-099: Implemented interactive Payment Mode Selector in `src/app/checkout/page.tsx` with "Online Pay (UPI)" as the primary default and "Pay at Counter (Cash)" as secondary
+- [x] TASK-100: Fixed mobile visibility of "Pay Now" buttons across `/cart` and `/checkout`: removed `hidden sm:block` restrictions so the button is always rendered inline in the document flow, elevated sticky floating bars to `z-50`, and suppressed conflicting bottom nav tabs on checkout via `<AppShell hideNav>`
+- [x] TASK-101: Created responsive Online Payment Gateway modal with institutional branding ("College of Engineering Vadakara"), instant UPI app selection (Google Pay, PhonePe, Paytm, custom UPI ID), and simulated banking authorization
+- [x] TASK-102: Connected payment approval directly to the Animated POS Thermal Receipt Printer (`ReceiptPrinterAnimation`), automatically stamping `PAID ONLINE (UPI)` in green `#269B62` with live itemized bill and takeaway QR code
+- [x] TASK-103: Verified production build (`npm run build`) with 0 errors across all 21 routes
+
 ---
 
 ## 16. Testing Strategy
@@ -586,6 +653,5 @@ To prevent future rewrites when an Admin Panel is built, food catalog management
 
 ---
 
-*Last Updated: Phase 15 COMPLETED — All emojis replaced with professional Lucide React icons throughout the entire codebase, verified with regex scan (0 emojis remaining) and 21/21 routes clean production build.*  
-*Status: ✅ COMPLETE & READY*  
+*Last Updated: Phase 18 COMPLETED — Complete Visual Identity Audit & Mobile-First UX Optimization executed. P0/P1 issues resolved (comfortable 44px touch targets on steppers and actions, persistent mobile floating checkout/order bars, rigid FoodCard grid height alignment, darkened 5.7:1 contrast tokens, safe-area inset support, and input a11y linking). Verified clean across 320px–430px viewports with 21/21 production build passing.*  
 *Status: ✅ COMPLETE & READY*
