@@ -14,6 +14,7 @@ import { authService } from '@/lib/services/authService';
 import { UserRole } from '@/lib/types/auth';
 import { isValidEmail, isValidPassword, isValidName, isValidPhone } from '@/lib/utils/validators';
 import { Footer } from '@/components/layout/Footer';
+import { Logo } from '@/components/ui/Logo';
 
 export default function SignUpPage() {
   const [role, setRole] = useState<UserRole>('student');
@@ -178,8 +179,8 @@ export default function SignUpPage() {
 
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex w-14 h-14 rounded-2xl bg-[#F47721] items-center justify-center mb-2 shadow-md shadow-[#F47721]/20">
-            <span className="text-white text-2xl font-black">C</span>
+          <div className="inline-flex items-center justify-center mb-2">
+            <Logo size={60} priority />
           </div>
           <span className="text-[11px] font-bold tracking-widest text-[#F47721] uppercase block">
             College of Engineering Vadakara

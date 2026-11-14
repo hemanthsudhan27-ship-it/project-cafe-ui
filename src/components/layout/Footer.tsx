@@ -1,3 +1,5 @@
+import { Logo } from '@/components/ui/Logo';
+
 interface FooterProps {
   className?: string;
   hasBottomNav?: boolean;
@@ -12,6 +14,7 @@ export function Footer({ className = '', hasBottomNav = false }: FooterProps) {
     >
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-center sm:text-left">
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+          <Logo size={22} />
           <span className="font-extrabold text-sm text-[#252525] uppercase tracking-wider">
             CAFETERIA
           </span>

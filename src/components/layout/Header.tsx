@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { ShoppingCart, UtensilsCrossed, Home, ClipboardList } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
+import { Logo } from '@/components/ui/Logo';
 
 function HeaderContent() {
   const pathname = usePathname();
@@ -28,9 +29,7 @@ function HeaderContent() {
       <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo / Brand */}
         <Link href={homeTarget} className="flex items-center gap-2.5 select-none group focus-ring rounded-xl p-1 -ml-1">
-          <div className="w-9 h-9 rounded-xl bg-[#F47721] flex items-center justify-center shadow-xs group-hover:bg-[#e06310] transition-colors">
-            <span className="text-white text-base font-black tracking-tight">C</span>
-          </div>
+          <Logo size={36} priority className="group-hover:scale-105 transition-transform" />
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5 leading-none">
               <span className="text-[#252525] font-black text-base tracking-wider uppercase">CAFETERIA</span>
@@ -144,9 +143,7 @@ export function Header() {
         <header className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-[#EEEEEE] h-16">
           <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#F47721] flex items-center justify-center">
-                <span className="text-white text-base font-extrabold">C</span>
-              </div>
+              <Logo size={36} />
               <span className="text-[#252525] font-extrabold text-base tracking-wider uppercase">CAFETERIA</span>
             </div>
           </div>
